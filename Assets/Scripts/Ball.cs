@@ -29,6 +29,8 @@ public class Ball : MonoBehaviour
     private int shotCount;
     private int count;
 
+    public GameObject explosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -122,6 +124,7 @@ public class Ball : MonoBehaviour
         if (topTag == true && bottomTag == true)
         {
             StartCoroutine(WaitScore());
+            Instantiate(explosion, transform.position, Quaternion.identity);
         }
 
         scoreDisplay.text = "Score: " + score.ToString();
