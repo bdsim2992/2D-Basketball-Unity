@@ -19,6 +19,7 @@ public class Line : MonoBehaviour
         lr = GetComponent<LineRenderer>();
         ball = GameObject.FindGameObjectWithTag("Ball").GetComponent<Ball>();
         color = lr.material.color;
+        //lr.sortingLayerName = "Foreground";
     }
 
     // Update is called once per frame
