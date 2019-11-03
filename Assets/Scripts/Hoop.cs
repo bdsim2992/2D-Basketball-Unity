@@ -29,50 +29,51 @@ public class Hoop : MonoBehaviour
         startPosition = gameObject.transform.position;
         randomLocation = new Vector3(randomX, randomY, 0);
         t = 0;
-        counter = 3;
+        counter = ball.getCount();
         move = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(MoveHoop(startPosition, randomLocation, 5));
-        print(move);
-
+        counter = ball.getCount();
+        if ((counter <= 0)){
+            StartCoroutine(MoveHoop(startPosition, randomLocation, 5));
+        }
         if (gameObject.transform.position == randomLocation)
         {
-            SetMove(false);
-            //startPosition = end;
-            //randomX = Random.Range(6, 10);
-            //randomY = Random.Range(1f, 8.3f);
-            //randomLocation = new Vector3(randomX, randomY, 0);
-            //counter = 3;
+            StopCoroutine(MoveHoop(startPosition, randomLocation, 5));
+            ball.setCount(3);
+            t = 0;
+            setHoopPositions();
         }
-        print(move);
+        counter = ball.getCount();
     }
 
 
 
     IEnumerator MoveHoop(Vector3 start, Vector3 end, float time)
     {
-        if (ball.GetShotCount() >= 1 && (counter - ball.GetShotCount()) == 0)
-        {
-            SetMove(true);
-        }
-
-        if (move)
-        {
-            t += Time.deltaTime / 5;
-            gameObject.transform.position = Vector3.Lerp(start, end, t);
-        }
-
+        t += Time.deltaTime / time;
+        gameObject.transform.position = Vector3.Lerp(start, end, t);
         yield return null;
     }
 
 
-
+    private void setHoopPositions()
+    {
+        startPosition = randomLocation;
+        randomX = Random.Range(6, 10);
+        randomY = Random.Range(1f, 8.3f);
+        randomLocation = new Vector3(randomX, randomY, 0);
+    }
     private void SetMove(bool ans)
     {
         move = ans;
+    }
+
+    private void minusCount()
+    {
+        counter -= 1;
     }
 }

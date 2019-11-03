@@ -27,6 +27,7 @@ public class Ball : MonoBehaviour
 
     private int score;
     private int shotCount;
+    private int count;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class Ball : MonoBehaviour
         score = 0;
         shotCount = 0;
         timeLimit = 90;
+        count = 3;
 
         scoreDisplay.text = "Score: " + score.ToString();
         timer.text = "Time Left: " + FormatTime(timeLimit);
@@ -90,6 +92,7 @@ public class Ball : MonoBehaviour
             shooting = true;
 
             shotCount++;
+            setCount(count-1);
         }
     }
 
@@ -177,5 +180,15 @@ public class Ball : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void setCount(int num)
+    {
+            count = num;
+    }
+
+    public int getCount()
+    {
+        return count;
     }
 }
