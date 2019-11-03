@@ -43,8 +43,11 @@ public class Hoop : MonoBehaviour
         if (gameObject.transform.position == randomLocation)
         {
             StopCoroutine(MoveHoop(startPosition, randomLocation, 5));
-            ball.setCount(3);
+            //Set counter till hoop moves to a random number
+            ball.setCount(Random.Range(2, 5));
+            //Set t to zero so the hoop doesn't teleport
             t = 0;
+            //Update and set new random hoop positions
             setHoopPositions();
         }
         counter = ball.getCount();
@@ -55,6 +58,7 @@ public class Hoop : MonoBehaviour
     IEnumerator MoveHoop(Vector3 start, Vector3 end, float time)
     {
         t += Time.deltaTime / time;
+        //Move hoop to end postiton within the time variable
         gameObject.transform.position = Vector3.Lerp(start, end, t);
         yield return null;
     }
